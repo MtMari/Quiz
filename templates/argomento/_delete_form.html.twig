@@ -1,0 +1,4 @@
+<form method="post" action="{{ path('app_argomento_delete', {'id': argomento.id}) }}" onsubmit="return confirm('Sei sicuro di voler eliminare questo argomento? L&rsquo;azione è irreversibile.');">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ argomento.id) }}">
+    <button class="btn btn-danger bg-gradient m-2">Elimina</button>
+</form>

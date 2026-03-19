@@ -1,0 +1,112 @@
+monolog:
+    channels:
+        - deprecation # Deprecations are logged in the dedicated "deprecation" channel when it exists
+
+when@dev:
+    monolog:
+        handlers:
+            main:
+                type: rotating_file
+                path: "%kernel.logs_dir%/%kernel.environment%.log"
+                level: debug
+                channels: ["!event"]
+                max_files: 10
+            console:
+                type: console
+                process_psr_3_messages: false
+                channels: ["!event", "!doctrine", "!console"]
+            argomento:
+                type: rotating_file
+                path: "%kernel.logs_dir%/argomento/argomento.log"
+                level: debug
+                channels: [argomento]
+                max_files: 10
+            filter_argomento:
+                type: fingers_crossed
+                action_level: error
+                handler: argomento_error
+            argomento_error:
+                type: rotating_file
+                path: "%kernel.logs_dir%/argomento/argomento_error/argomento_error.log"
+                channels: [argomento]
+            domanda:
+                type: rotating_file
+                path: "%kernel.logs_dir%/domanda/domanda.log"
+                level: debug
+                channels: [domanda]
+                max_files: 10
+            filter_domanda:
+                type: fingers_crossed
+                action_level: error
+                handler: domanda_error
+            domanda_error:
+                type: rotating_file
+                path: "%kernel.logs_dir%/domanda/domanda_error/domanda_error.log"
+                channels: [domanda]
+            quiz:
+                type: rotating_file
+                path: "%kernel.logs_dir%/quiz/quiz.log"
+                level: debug
+                channels: [quiz]
+                max_files: 10
+            filter_quiz:
+                type: fingers_crossed
+                action_level: error
+                handler: quiz_error
+            quiz_error:
+                type: rotating_file
+                path: "%kernel.logs_dir%/quiz/quiz_error/quiz_error.log"
+                channels: [quiz]
+            risposta:
+                type: rotating_file
+                path: "%kernel.logs_dir%/risposta/risposta.log"
+                level: debug
+                channels: [risposta]
+                max_files: 10
+            filter_risposta:
+                type: fingers_crossed
+                action_level: error
+                handler: risposta_error
+            risposta_error:
+                type: rotating_file
+                path: "%kernel.logs_dir%/risposta/risposta_error/risposta_error.log"
+                channels: [risposta]
+
+when@test:
+    monolog:
+        handlers:
+            main:
+                type: fingers_crossed
+                action_level: error
+                handler: nested
+                excluded_http_codes: [404, 405]
+                channels: ["!event"]
+            nested:
+                type: stream
+                path: "%kernel.logs_dir%/%kernel.environment%.log"
+                level: debug
+
+when@prod:
+    monolog:
+        handlers:
+            main:
+                type: fingers_crossed
+                action_level: error
+                handler: nested
+                excluded_http_codes: [404, 405]
+                channels: ["!deprecation"]
+                buffer_size: 50 # How many messages should be saved? Prevent memory leaks
+            nested:
+                type: stream
+                path: php://stderr
+                level: debug
+                formatter: monolog.formatter.json
+            console:
+                type: console
+                process_psr_3_messages: false
+                channels: ["!event", "!doctrine"]
+            deprecation:
+                type: stream
+                channels: [deprecation]
+                path: php://stderr
+                formatter: monolog.formatter.json

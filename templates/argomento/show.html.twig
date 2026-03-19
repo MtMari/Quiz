@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Argomento - Info{% endblock %}
+
+{% block body %}
+    {% import "macros/_navbar.html.twig" as navbar %}
+    {{ navbar.navbar()}}
+
+    <div class="m-2">
+        <h1>Argomento: {{ argomento.nomeArgomento }}</h1>
+        <div class="mt-2 mb-4 d-flex align-items-center gap-4">
+            <a class="btn btn-outline-dark column" href="{{ path('app_quiz_index') }}">&lt; Indietro</a>
+            <a class ="btn btn-outline-info" href="{{ path('app_argomento_edit', {'id': argomento.id}) }}">Modifica</a>
+        </div>
+    </div>
+
+
+    <table class="table align-middle table-bordered">
+        <tbody>
+            <tr>
+                <th>Nome Argomento</th>
+            </tr>
+            <tr>
+                <td>{{ argomento.nomeArgomento }}</td>
+            </tr>
+            <tr>
+                <th>Descrizione</th>
+            </tr>
+            <tr>
+                <td>{{ argomento.descrizione }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{{ path('app_domanda_new', {'nomeArgomento': argomento.nomeArgomento})}}" class="btn btn-outline-success btn-sm fs-6 m-2"><i class="bi bi-plus-circle-fill me-1"></i>Aggiungi Domande</a>
+
+    {{ include('argomento/_delete_form.html.twig') }}
+{% endblock %}

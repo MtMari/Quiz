@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifica Domanda{% endblock %}
+
+{% block body %}
+    {% import "macros/_navbar.html.twig" as navbar %}
+    {{ navbar.navbar()}}
+
+    <div class="m-2">
+        <h1>Modifica Dati</h1>
+
+        <a class="btn btn-outline-dark mt-2 mb-4" href="{{ path('app_domanda_show', { id: domanda.id }) }}">&lt; Indietro</a>
+
+        <div class="d-flex">
+            {{ include('domanda/_form.html.twig', {'button_label': 'Conferma'}) }}
+            {{ include('domanda/_delete_form.html.twig', {'attr': {'class': 'd-inline'}}) }}
+        </div>
+
+    </div>
+{% endblock %}

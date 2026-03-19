@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Quiz{% endblock %}
+
+{% block body %}
+    {% import "macros/_navbar.html.twig" as navbar %}
+    {{ navbar.navbar(activeQuiz: 'text-decoration-underline fw-bold')}}
+
+    <div class="m-2">
+        <section>
+            <twig:RicercaQuiz argomenti="{{ argomenti }}"/>
+        </section>
+    </div>
+{% endblock %}

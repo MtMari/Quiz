@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Risposta{% endblock %}
+
+{% block body %}
+    <h1>Create new Risposta</h1>
+
+    {{ include('risposta/_form.html.twig') }}
+
+    <a href="{{ path('app_risposta_index') }}">back to list</a>
+{% endblock %}

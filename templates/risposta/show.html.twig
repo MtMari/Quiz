@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Risposta{% endblock %}
+
+{% block body %}
+    <h1>Risposta</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ rispostum.id }}</td>
+            </tr>
+            <tr>
+                <th>Testo_risposta</th>
+                <td>{{ rispostum.testoRisposta }}</td>
+            </tr>
+            <tr>
+                <th>Punteggio</th>
+                <td>{{ rispostum.punteggio }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_risposta_index') }}">back to list</a>
+
+    <a href="{{ path('app_risposta_edit', {'id': rispostum.id}) }}">edit</a>
+
+    {{ include('risposta/_delete_form.html.twig') }}
+{% endblock %}

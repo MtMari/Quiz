@@ -1,0 +1,56 @@
+<div{{ attributes }}>
+    <!-- input search con nome query tabella -->
+    <div class="input-group w-75 ms-1">
+        <span class="input-group-text"><i class="bi bi-search"></i></span>
+        <input
+            type="search"
+            name="query"
+            data-model=query
+            placeholder="Ricerca per Argomento o per Domanda..."
+            class="form-control"
+        >
+    </div>
+    <table class="table table-bordered table-responsive align-middle mt-3">
+        <thead class="text-center">
+            <tr>
+                <th>ARGOMENTO</th>
+                <th>INFO</th>
+                <th>DOMANDE</th>
+                <th>INFO</th>
+            </tr>
+        </thead>    
+        <tbody>
+            {% for item in this.dati %}
+                {% if item.domandas|length is same as 0 %}
+                    <tr>
+                        <td class="text-center">{{item.nomeArgomento}}</td>
+                        <td class="text-center"><a href=" {{path('app_argomento_show', {'id': item.id}) }}"><i class="bi bi-info-circle-fill"></i></a></td>
+                        <td colspan="2"><a class="btn btn-outline-success btn-sm" href="{{ path('app_domanda_new')}}"><i class="bi bi-plus-circle-fill me-1"></i>Aggiungi Domanda</a></td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td rowspan="{{item.domandas|length}}" class=" text-center">{{item.nomeArgomento}}</td>
+                        <td rowspan="{{item.domandas|length}}" class=" text-center">
+                            <a href=" {{path('app_argomento_show', {'id': item.id}) }}"><i class="bi bi-info-circle-fill"></i></a></td>
+                        {% for domanda in item.domandas|slice(0,1) %}
+                            <td calss="text-start">
+                                {{domanda.testoDomanda}}
+                            </td>
+                            <td class=" text-center"><a href=" {{path('app_domanda_show', {'id': domanda.id}) }}"><i class="bi bi-info-circle-fill"></i></a></i></td>
+                        {% endfor %}
+                    </tr>
+                    {% if item.domandas|length > 1 %}
+                        {% for domanda in item.domandas|slice(1) %}
+                            <tr>
+                                <td>
+                                    {{domanda.testoDomanda}}
+                                </td>
+                                <td class=" text-center"><a href=" {{path('app_domanda_show', {'id': domanda.id}) }}"><i class="bi bi-info-circle-fill"></i></a></td>
+                            </tr>
+                        {% endfor %}
+                    {% endif %}
+                {% endif %}
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

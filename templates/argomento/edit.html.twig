@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifica Argomento{% endblock %}
+
+{% block body %}
+    {% import "macros/_navbar.html.twig" as navbar %}
+    {{ navbar.navbar()}}
+    
+    <div class="m-2">
+        <h1>Modifica: {{ argomento.nomeArgomento }}</h1>
+    
+        <a class="btn btn-outline-dark mt-2 mb-4" href="{{ path('app_argomento_show', { id: argomento.id }) }}">&lt; Indietro</a>
+    
+        {{ include('argomento/_form.html.twig', {'button_label': 'Conferma'}, {'attr': ' btn-outline-dark'}) }}
+    </div>
+    {{ include('argomento/_delete_form.html.twig') }}
+
+{% endblock %}

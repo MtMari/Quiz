@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Aggiungi Domanda{% endblock %}
+
+{% block body %}
+    {% import "macros/_navbar.html.twig" as navbar %}
+    {{ navbar.navbar(activeAggiungiDomanda: 'text-decoration-underline fw-bold')}}
+
+    <div class="m-2">
+        <h1>Aggiungi Domanda</h1>
+        
+        <a class="btn btn-outline-dark mt-2 mb-4" href="{{ path('app_quiz_index') }}">Indice Quiz</a>
+
+        {{ include('domanda/_form.html.twig') }}
+    </div>
+
+{% endblock %}

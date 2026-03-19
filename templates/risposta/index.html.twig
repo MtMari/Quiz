@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Risposta index{% endblock %}
+
+{% block body %}
+    <h1>Risposta index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Testo_risposta</th>
+                <th>Punteggio</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for rispostum in rispostas %}
+            <tr>
+                <td>{{ rispostum.id }}</td>
+                <td>{{ rispostum.testoRisposta }}</td>
+                <td>{{ rispostum.punteggio }}</td>
+                <td>
+                    <a href="{{ path('app_risposta_show', {'id': rispostum.id}) }}">show</a>
+                    <a href="{{ path('app_risposta_edit', {'id': rispostum.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_risposta_new') }}">Create new</a>
+{% endblock %}

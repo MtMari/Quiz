@@ -1,0 +1,13 @@
+{{ form_start(form, { 'attr': {'class': 'w-25'}}) }}
+    {{ form_row(form.argomento) }}
+    {{ form_row(form.testo_domanda) }}
+    {{ form_errors(form) }}
+    <div {{ stimulus_controller('form-collection') }}
+    data-form-collection-index-value="{{ form.rispostas|length > 0 ? form.rispostas|last.vars.name + 1 : 0 }}"
+    data-form-collection-prototype-value="{{ form_widget(form.rispostas.vars.prototype)|e('html_attr') }}"
+    >
+        <ul class="rispostas" {{ stimulus_target('form-collection', 'collectionContainer') }}></ul>
+        <button class="btn btn-outline-success mb-4" type="button" {{ stimulus_action('form-collection', 'addCollectionElement') }}>Aggiungi Risposta</button>
+    <div>
+    {# <button class="btn">{{ button_label|default('Aggiungi') }}</button> #}
+{{ form_end(form) }}

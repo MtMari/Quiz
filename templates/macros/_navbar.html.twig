@@ -1,0 +1,51 @@
+{% macro navbar(activeHome, activeQuiz, activeIndiceQuiz, activeAggiungiArgomento, activeAggiungiDomanda, activeRegister) %}
+
+    <nav class="navbar navbar-expand-lg bg-gradient fs-5 p-3 {{ app.session.flashbag.peek('success')|length > 0 ? '' : 'mb-5' }}"
+        {{ is_granted('IS_IMPERSONATOR') ?  'style="background-color: #c92020"' : 'style="background-color: #20c997;"'}}>
+        <div class="container-fluid">
+                <div class="navbar-nav">
+                    <a class="nav-link {{ activeHome }} text-light mx-3" href="{{ path('app_home') }}">Home</a>
+                    <a class="nav-link {{ activeQuiz }} text-light mx-3" href="{{ path('app_quiz') }}">Quiz</a>
+                    {% if not app.user %}
+                        <a class="nav-link {{ activeRegister }} text-light mx-3" href="{{ path('app_register')}}">Registrati</a>
+                    {% endif %}
+                    {% if is_granted('ROLE_ADMIN') %}
+                        <a class="nav-link {{ activeIndiceQuiz }} text-light mx-3" href="{{ path('app_quiz_index') }}">Indice Quiz</a>
+                        <a class="nav-link {{ activeAggiungiArgomento }} text-light mx-3" href="{{ path('app_argomento_new') }}">Aggiungi Argomento</a>
+                        <a class="nav-link {{ activeAggiungiDomanda }} text-light mx-3" href="{{ path('app_domanda_new') }}">Aggiungi Domanda</a>
+                        <ul class="navbar-nav">
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Gestione Utenti
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item disabled" href="#">Indice</a></li>
+                                    <li><a class="dropdown-item" href="{{ path('app_register') }}">Nuovo Utente</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    {% endif %}
+                </div>
+            {% if app.user %}
+                <div class="border border-light border-2 rounded-3 fs-6 me-3">
+                    <span class="text-white mx-3">{{ app.user.userIdentifier|upper }}</span>
+                    <a href="{{ path('app_logout') }}" class= "btn btn-light p-2">Logout</a>
+                </div>
+            {% else %}
+                <div class="border border-light border-2 rounded-3 me-3">
+                    <a href="{{ path('app_login') }}" class="btn-light btn btn-sm bg-gradient fs-6 px-3">Log in</a>
+                </div>
+            {% endif %}
+        </div>
+    </nav>
+    {% if is_granted('IS_IMPERSONATOR') %}
+        <a class="d-flex justify-content-center w-100" href="{{ impersonation_exit_path(path('app_home')) }}">Exit impersonation</a>
+    {% endif %}
+
+    {% for message in app.flashes('success') %}
+        <div class="flash-success text-center my-2 p-2">
+            {{message}}
+        </div>
+    {% endfor %}
+
+{% endmacro navbar %}

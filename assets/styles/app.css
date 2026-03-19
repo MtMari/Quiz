@@ -1,0 +1,28 @@
+.bozza {
+    padding: 3px;
+    background-color: rgb(244, 244, 244);
+    color: rgb(221, 49, 49);
+    border: solid 1px;
+    border-color: black;
+}
+
+ul.rispostas li{
+    list-style-type: none;
+}
+
+.small-text {
+    font-size: smaller;
+}
+a.dropdown-toggle {
+    color:white; 
+}
+
+.flash-success {
+    background-color:  #cfe0fa;
+    border: 2px;
+    border-color: #0d6efd;
+}
+
+.no-data {
+    background-color: rgb(232, 232, 233);
+}
