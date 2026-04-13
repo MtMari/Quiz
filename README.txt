@@ -10,3 +10,11 @@ Tools utilizzati:
 - Symfony
 - Bootstrap
 - PostgreSQL dockerizzato
+
+###
+
+- CRUD
+- form Log In e registrazione
+- gerarchia utenti
+- barre di ricerca
+- query personalizzate
